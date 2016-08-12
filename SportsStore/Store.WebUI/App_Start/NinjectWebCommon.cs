@@ -7,7 +7,7 @@ namespace Store.WebUI.App_Start
     using System.Web;
 
     using Microsoft.Web.Infrastructure.DynamicModuleHelper;
-
+    
     using Ninject;
     using Ninject.Web.Common;
     using System.Web.Mvc;
@@ -63,7 +63,7 @@ namespace Store.WebUI.App_Start
         /// <param name="kernel">The kernel.</param>
         private static void RegisterServices(IKernel kernel)
         {
-            DependencyResolver.SetResolver(new NinjectDependencyResolver(kernel));
+            System.Web.Mvc.DependencyResolver.SetResolver(new Store.WebUI.Infrastructure.NinjectDependencyResolver(kernel));
         }        
     }
 }
