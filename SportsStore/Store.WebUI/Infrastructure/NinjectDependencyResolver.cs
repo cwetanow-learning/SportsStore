@@ -1,5 +1,6 @@
 ﻿using Moq;
 using Ninject;
+using Store.Domain.Concrete;
 using Store.Domain.Contracts;
 using Store.Domain.Models;
 using System;
@@ -39,7 +40,7 @@ namespace Store.WebUI.Infrastructure
                 new Product { Name = "Running shoes", Price = 95 }
             });
 
-            kernel.Bind<IProductRepository>().ToConstant(mockedRepository.Object);
+            kernel.Bind<IProductRepository>().To<EFProductRepository>();
         }
     }
 }
