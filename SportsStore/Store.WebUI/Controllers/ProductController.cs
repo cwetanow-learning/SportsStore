@@ -10,15 +10,18 @@ namespace Store.WebUI.Controllers
     public class ProductController : Controller
     {
         private IProductRepository repository;
-
+        private int PageSize = 2;
         public ProductController(IProductRepository repo)
         {
             this.repository = repo;
         }
 
-        public ViewResult List()
+        public ViewResult List(int page = 1)
         {
-            return View(this.repository.Products);
+            return View(this.repository.Products
+                .OrderBy(p => p.ProductID)
+                .Skip((page - 1)*PageSize)
+                .Take(PageSize));
         }
     }
 }

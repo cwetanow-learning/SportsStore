@@ -9,6 +9,6 @@ namespace Store.Domain.Contracts
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> Products { get; }
+        IEnumerable<IProduct> Products { get; }
     }
 }

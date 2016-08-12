@@ -11,7 +11,7 @@ namespace Store.Domain.Concrete
     public class EFProductRepository : IProductRepository
     {
         private EFDBContext context = new EFDBContext();
-        public IEnumerable<Product> Products
+        public IEnumerable<IProduct> Products
         {
             get
             {

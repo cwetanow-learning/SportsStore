@@ -79,6 +79,7 @@
   <ItemGroup>
     <Compile Include="Concrete\EFDBContext.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
+    <Compile Include="Contracts\IProduct.cs" />
     <Compile Include="Contracts\IProductRepository.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
