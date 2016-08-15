@@ -1,4 +1,5 @@
 ﻿using Store.Domain.Contracts;
+using Store.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,7 +11,7 @@ namespace Store.WebUI.Controllers
     public class ProductController : Controller
     {
         private IProductRepository repository;
-        private int PageSize = 2;
+        public int PageSize = 4;
         public ProductController(IProductRepository repo)
         {
             this.repository = repo;
@@ -18,10 +19,20 @@ namespace Store.WebUI.Controllers
 
         public ViewResult List(int page = 1)
         {
-            return View(this.repository.Products
-                .OrderBy(p => p.ProductID)
-                .Skip((page - 1)*PageSize)
-                .Take(PageSize));
+            var model = new ProductsListViewModel
+            {
+                Products = repository.Products
+                    .OrderBy(p => p.ProductID)
+                    .Skip((page - 1) * PageSize)
+                    .Take(PageSize),
+                PagingInfo = new PagingInfo
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repository.Products.Count()
+                }
+            };
+            return View(model);
         }
     }
 }

@@ -1,11 +1,10 @@
-﻿@using Store.Domain.Contracts
-@model IEnumerable<IProduct>
-
+﻿@model Store.WebUI.Models.ProductsListViewModel
+@using Store.WebUI.HTMLHelpers
 @{
     ViewBag.Title = "Products";
 }
 
-@foreach (var product in Model)
+@foreach (var product in Model.Products)
 {
     <div>
         <h3>@product.Name</h3>
@@ -14,3 +13,6 @@
     </div>
 }
 
+<div>
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("List", new { page = x }))
+</div>
