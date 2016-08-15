@@ -18,40 +18,29 @@ namespace Store.WebUI.Controllers
             this.repository = repo;
         }
 
-        public RedirectToRouteResult AddToCart(int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(ICart cart, int productId, string returnUrl)
         {
             var product = this.repository.Products.FirstOrDefault(x => x.ProductID == productId);
 
             if (product != null)
             {
-                GetCart().AddItem(product, 1);
+                cart.AddItem(product, 1);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(ICart cart, int productId, string returnUrl)
         {
             var product = this.repository.Products.FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
             {
-                GetCart().RemoveLine(product);
+                cart.RemoveLine(product);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-        public ViewResult Index(string returnUrl)
+        public ViewResult Index(ICart cart, string returnUrl)
         {
-            return View(new CartIndexViewModel(GetCart(), returnUrl));
-        }
-
-        private ICart GetCart()
-        {
-            var cart = (Cart)Session["Cart"];
-            if (cart == null)
-            {
-                cart = new Cart();
-                Session["Cart"] = cart;
-            }
-            return cart;
+            return View(new CartIndexViewModel(cart, returnUrl));
         }
     }
 }
