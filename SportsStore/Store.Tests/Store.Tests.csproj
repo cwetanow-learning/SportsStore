@@ -137,6 +137,7 @@
   </Choose>
   <ItemGroup>
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="CartTests\CartTest.cs" />
     <Compile Include="NavControllerTests\CategoriesTests.cs" />
     <Compile Include="ProductControllerTest\PagenationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
