@@ -110,12 +110,12 @@ namespace Store.Tests.ProductControllerTest
             var secondMockedProduct = new Mock<IProduct>();
             secondMockedProduct.SetupGet(p => p.ProductID).Returns(2);
             secondMockedProduct.SetupGet(p => p.Name).Returns("P2");
-            firstMockedProduct.SetupGet(p => p.Category).Returns("Cat2");
+            secondMockedProduct.SetupGet(p => p.Category).Returns("Cat2");
 
             var thirdtMockedProduct = new Mock<IProduct>();
             thirdtMockedProduct.SetupGet(p => p.ProductID).Returns(3);
             thirdtMockedProduct.SetupGet(p => p.Name).Returns("P3");
-            firstMockedProduct.SetupGet(p => p.Category).Returns("Cat3");
+            thirdtMockedProduct.SetupGet(p => p.Category).Returns("Cat3");
 
             var listOfProducts = new List<IProduct> { firstMockedProduct.Object, secondMockedProduct.Object, thirdtMockedProduct.Object };
 
