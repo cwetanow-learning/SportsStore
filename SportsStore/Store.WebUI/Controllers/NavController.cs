@@ -15,8 +15,9 @@ namespace Store.WebUI.Controllers
         {
             this.repository = repo;
         }
-        public PartialViewResult Menu()
+        public PartialViewResult Menu(string category=null)
         {
+            ViewBag.SelectedCategory = category;
             var categories = this.repository.Products
                 .Select(p => p.Category)
                 .Distinct()
