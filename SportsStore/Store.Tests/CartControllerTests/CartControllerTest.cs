@@ -3,6 +3,7 @@ using NUnit.Framework;
 using Store.Domain.Contracts;
 using Store.Domain.Models;
 using Store.WebUI.Controllers;
+using Store.WebUI.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -53,6 +54,19 @@ namespace Store.Tests.CartControllerTests
 
             Assert.AreEqual(result.RouteValues["action"], "Index");
             Assert.AreEqual(result.RouteValues["returnUrl"], "myUrl");
+        }
+
+        [TestCase("myUrl")]
+        public void TestCartController_WhenAddToCart_ShouldOpenCorrectCart(string url)
+        {
+            var cart = new Cart();
+
+            var controller = new CartController(null);
+
+            var result = (CartIndexViewModel)controller.Index(cart,url).Model;
+
+            Assert.AreEqual(result.Cart, cart);
+            Assert.AreEqual(result.ReturnUrl, url);
         }
     }
 }

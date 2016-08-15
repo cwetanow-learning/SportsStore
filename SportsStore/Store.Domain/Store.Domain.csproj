@@ -79,13 +79,16 @@
   <ItemGroup>
     <Compile Include="Concrete\EFDBContext.cs" />
     <Compile Include="Concrete\EFProductRepository.cs" />
+    <Compile Include="Concrete\EmailSettings.cs" />
     <Compile Include="Contracts\ICart.cs" />
     <Compile Include="Contracts\ICartLine.cs" />
+    <Compile Include="Contracts\IOrderProcessor.cs" />
     <Compile Include="Contracts\IProduct.cs" />
     <Compile Include="Contracts\IProductRepository.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartLine.cs" />
     <Compile Include="Models\Product.cs" />
+    <Compile Include="Models\ShippingDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

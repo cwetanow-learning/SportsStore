@@ -12,13 +12,15 @@ namespace Store.WebUI.Controllers
     public class CartController : Controller
     {
         private IProductRepository repository;
+        private IOrderProcessor processor;
 
-        public CartController(IProductRepository repo)
+        public CartController(IProductRepository repo, IOrderProcessor proc)
         {
             this.repository = repo;
+            this.processor = proc;
         }
 
-        public RedirectToRouteResult AddToCart(ICart cart, int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
         {
             var product = this.repository.Products.FirstOrDefault(x => x.ProductID == productId);
 
@@ -29,7 +31,7 @@ namespace Store.WebUI.Controllers
             return RedirectToAction("Index", new { returnUrl });
         }
 
-        public RedirectToRouteResult RemoveFromCart(ICart cart, int productId, string returnUrl)
+        public RedirectToRouteResult RemoveFromCart(Cart cart, int productId, string returnUrl)
         {
             var product = this.repository.Products.FirstOrDefault(p => p.ProductID == productId);
             if (product != null)
@@ -38,9 +40,35 @@ namespace Store.WebUI.Controllers
             }
             return RedirectToAction("Index", new { returnUrl });
         }
-        public ViewResult Index(ICart cart, string returnUrl)
+        public ViewResult Index(Cart cart, string returnUrl)
         {
             return View(new CartIndexViewModel(cart, returnUrl));
+        }
+
+        public PartialViewResult Summary(Cart cart)
+        {
+            return PartialView(cart);
+        }
+
+        [HttpPost]
+        public ViewResult Checkout(Cart cart, ShippingDetails details)
+        {
+            if (cart.Lines.Count() == 0)
+            {
+                ModelState.AddModelError("", "Sorry, your cart is empty!");
+            }
+
+            if (ModelState.IsValid)
+            {
+                processor.ProcessOrder(cart, details);
+                cart.Clear();
+                return View("Completed");
+            }
+            else
+            {
+                return View(details);
+            }
+
         }
     }
 }
