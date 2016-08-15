@@ -41,7 +41,7 @@ namespace Store.Tests.ProductControllerTest
             var controller = new ProductController(mockedRepository.Object);
             controller.PageSize = 2;
 
-            var result = ((ProductsListViewModel)controller.List(2).Model);
+            var result = ((ProductsListViewModel)controller.List(null, 2).Model);
 
             Assert.AreEqual(1, result.Products.Count());
             Assert.AreEqual(thirdtMockedProduct.Object, result.Products.ToList()[0]);
@@ -88,12 +88,46 @@ namespace Store.Tests.ProductControllerTest
             var controller = new ProductController(mockedRepository.Object);
             controller.PageSize = 2;
 
-            var result = ((ProductsListViewModel)controller.List(2).Model);
+            var result = ((ProductsListViewModel)controller.List(null, 2).Model);
 
             Assert.AreEqual(result.PagingInfo.CurrentPage, 2);
             Assert.AreEqual(result.PagingInfo.ItemsPerPage, 2);
             Assert.AreEqual(result.PagingInfo.TotalItems, 3);
             Assert.AreEqual(result.PagingInfo.TotalPages, 2);
+        }
+
+        [TestCase("Cat1")]
+        [TestCase("Cat2")]
+        public void TestPaging_ShouldFilterByCategoryCorrectly(string category)
+        {
+            var mockedRepository = new Mock<IProductRepository>();
+
+            var firstMockedProduct = new Mock<IProduct>();
+            firstMockedProduct.SetupGet(p => p.ProductID).Returns(1);
+            firstMockedProduct.SetupGet(p => p.Name).Returns("P1");
+            firstMockedProduct.SetupGet(p => p.Category).Returns("Cat1");
+
+            var secondMockedProduct = new Mock<IProduct>();
+            secondMockedProduct.SetupGet(p => p.ProductID).Returns(2);
+            secondMockedProduct.SetupGet(p => p.Name).Returns("P2");
+            firstMockedProduct.SetupGet(p => p.Category).Returns("Cat2");
+
+            var thirdtMockedProduct = new Mock<IProduct>();
+            thirdtMockedProduct.SetupGet(p => p.ProductID).Returns(3);
+            thirdtMockedProduct.SetupGet(p => p.Name).Returns("P3");
+            firstMockedProduct.SetupGet(p => p.Category).Returns("Cat3");
+
+            var listOfProducts = new List<IProduct> { firstMockedProduct.Object, secondMockedProduct.Object, thirdtMockedProduct.Object };
+
+            mockedRepository.Setup(s => s.Products).Returns(listOfProducts);
+
+            var controller = new ProductController(mockedRepository.Object);
+
+            var result = ((ProductsListViewModel)controller.List(category).Model).Products.ToList();
+            var expected = mockedRepository.Object.Products.Where(c => c.Category == category);
+
+            Assert.AreEqual(result.Count, expected.Count());
+            Assert.AreEqual(result, expected);
         }
     }
 }

@@ -8,5 +8,7 @@ namespace Store.WebUI.Models
     {
         public IEnumerable<IProduct> Products { get; set; }
         public PagingInfo PagingInfo { get; set; }
+
+        public string SelectedCategory { get; set; }
     }
 }
