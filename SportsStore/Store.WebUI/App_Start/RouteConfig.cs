@@ -40,6 +40,7 @@ namespace Store.WebUI
                 );
 
             routes.MapRoute(null, "{controller}/{action}");
+
         }
     }
 }
