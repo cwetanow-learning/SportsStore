@@ -8,6 +8,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace Store.Tests.AdministrationTests
 {
@@ -52,8 +53,41 @@ namespace Store.Tests.AdministrationTests
             var controller = new AdminController(mockedRepository.Object);
 
             var result = controller.Edit(id).ViewData.Model;
-            
+
             Assert.IsNull(result);
+        }
+
+        [Test]
+        public void TestEdit_PassValidChanges_ShouldSaveCorrectly()
+        {
+            var mockedRepository = new Mock<IProductRepository>();
+
+            var controller = new AdminController(mockedRepository.Object);
+
+            var mockedProduct = new Mock<Product>();
+
+            var result = controller.Edit(mockedProduct.Object);
+
+            mockedRepository.Verify(x => x.SaveProduct(It.IsAny<Product>()), Times.Once);
+
+            Assert.IsNotInstanceOf<ViewResult>(result);
+        }
+
+        [Test]
+        public void TestEdit_PassInvalidChanges_ShouldNotSave()
+        {
+            var mockedRepository = new Mock<IProductRepository>();
+
+            var controller = new AdminController(mockedRepository.Object);
+            controller.ModelState.AddModelError("error", "error");
+
+            var mockedProduct = new Mock<Product>();
+
+            var result = controller.Edit(mockedProduct.Object);
+
+            mockedRepository.Verify(x => x.SaveProduct(It.IsAny<Product>()), Times.Never());
+
+            Assert.IsInstanceOf<ViewResult>(result);
         }
     }
 }

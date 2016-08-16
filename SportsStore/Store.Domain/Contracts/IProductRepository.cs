@@ -10,5 +10,7 @@ namespace Store.Domain.Contracts
     public interface IProductRepository
     {
         IEnumerable<IProduct> Products { get; }
+
+        void SaveProduct(Product product);
     }
 }

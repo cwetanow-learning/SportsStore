@@ -1,4 +1,5 @@
 ﻿using Store.Domain.Contracts;
+using Store.Domain.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,6 +25,22 @@ namespace Store.WebUI.Controllers
         {
             var result = this.repository.Products.FirstOrDefault(p => p.ProductID == productId);
             return View(result);
+        }
+
+        [HttpPost]
+        public ActionResult Edit(Product product)
+        {
+            if (ModelState.IsValid)
+            {
+                this.repository.SaveProduct(product);
+                TempData["message"] = string.Format("{0} has been saved!", product.Name);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(product);
+            }
+
         }
     }
 }
