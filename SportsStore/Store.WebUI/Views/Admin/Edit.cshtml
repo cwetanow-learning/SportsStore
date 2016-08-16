@@ -1,0 +1,15 @@
+﻿@model   Store.Domain.Models.Product
+
+@{
+    ViewBag.Title = "Admin: Edit" + @Model.Name;
+    Layout = "../Shared/_AdminLayout.cshtml";
+}
+
+<h1>Edit @Model.Name</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.EditorForModel()
+    <input type="submit" value="Save" />
+    @Html.ActionLink("Cancel", "Index")
+}
