@@ -39,6 +39,12 @@ namespace Store.WebUI
                 new { page = @"\d+" }
                 );
 
+            routes.MapRoute(
+                null,
+                "",
+                new { controller = "Product", action = "List" }
+                );
+
             routes.MapRoute(null, "{controller}/{action}");
 
         }
