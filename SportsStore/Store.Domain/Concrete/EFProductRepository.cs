@@ -19,6 +19,17 @@ namespace Store.Domain.Concrete
             }
         }
 
+        public Product DeleteProduct(int productId)
+        {
+            var dbEntry = this.context.Products.Find(productId);
+            if (dbEntry != null)
+            {
+                this.context.Products.Remove(dbEntry);
+                this.context.SaveChanges();
+            }
+            return dbEntry;
+        }
+
         public void SaveProduct(Product product)
         {
             if (product.ProductID == 0)

@@ -12,5 +12,7 @@ namespace Store.Domain.Contracts
         IEnumerable<IProduct> Products { get; }
 
         void SaveProduct(Product product);
+
+        Product DeleteProduct(int productId);
     }
 }
