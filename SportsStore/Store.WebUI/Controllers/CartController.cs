@@ -20,13 +20,13 @@ namespace Store.WebUI.Controllers
             this.processor = proc;
         }
 
-        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl)
+        public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl, int quantity = 1)
         {
             var product = this.repository.Products.FirstOrDefault(x => x.ProductID == productId);
 
             if (product != null)
             {
-                cart.AddItem(product, 1);
+                cart.AddItem(product, quantity);
             }
             return RedirectToAction("Index", new { returnUrl });
         }
