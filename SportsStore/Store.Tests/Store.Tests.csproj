@@ -144,6 +144,7 @@
     <Compile Include="CartControllerTests\CartControllerTest.cs" />
     <Compile Include="CartTests\CartTest.cs" />
     <Compile Include="NavControllerTests\CategoriesTests.cs" />
+    <Compile Include="ProductControllerTest\ImageTests.cs" />
     <Compile Include="ProductControllerTest\PagenationTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

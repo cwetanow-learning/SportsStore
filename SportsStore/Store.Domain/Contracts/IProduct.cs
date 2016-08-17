@@ -13,5 +13,7 @@ namespace Store.Domain.Contracts
         string Description { get; }
         decimal Price { get; }
         string Category { get; }
+        byte[] ImageData { get; }
+        string ImageMimeType { get; }
     }
 }

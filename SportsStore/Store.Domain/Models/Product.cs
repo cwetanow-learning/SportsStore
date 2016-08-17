@@ -26,5 +26,15 @@ namespace Store.Domain.Models
         public decimal Price { get; set; }
         [Required(ErrorMessage = "Please enter a product name")]
         public string Category { get; set; }
+
+        public byte[] ImageData
+        {
+            get;set;
+        }
+
+        public string ImageMimeType
+        {
+            get; set;
+        }
     }
 }

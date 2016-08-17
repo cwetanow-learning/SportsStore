@@ -30,13 +30,26 @@ namespace Store.WebUI.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = category==null?
+                    TotalItems = category == null ?
                         repository.Products.Count() :
-                        repository.Products.Where(p=>p.Category==category).Count()
+                        repository.Products.Where(p => p.Category == category).Count()
                 },
                 SelectedCategory = category
             };
             return View(model);
+        }
+
+        public FileContentResult GetImage(int id)
+        {
+            var product = this.repository.Products.FirstOrDefault(x => x.ProductID == id);
+            if (product != null)
+            {
+                return File(product.ImageData, product.ImageMimeType);
+            }
+            else
+            {
+                return null;
+            }
         }
     }
 }
