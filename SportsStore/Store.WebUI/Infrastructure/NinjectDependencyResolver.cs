@@ -3,6 +3,8 @@ using Ninject;
 using Store.Domain.Concrete;
 using Store.Domain.Contracts;
 using Store.Domain.Models;
+using Store.WebUI.Infrastructure.Concrete;
+using Store.WebUI.Infrastructure.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Configuration;
@@ -40,6 +42,8 @@ namespace Store.WebUI.Infrastructure
             };
 
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
+
+            kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
         }
     }
 }

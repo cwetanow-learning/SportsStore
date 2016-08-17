@@ -140,6 +140,7 @@
     <Compile Include="AdministrationTests\DeleteTests.cs" />
     <Compile Include="AdministrationTests\EditTests.cs" />
     <Compile Include="App_Start\NinjectWebCommon.cs" />
+    <Compile Include="AuthenticationTests\LoginTests.cs" />
     <Compile Include="CartControllerTests\CartControllerTest.cs" />
     <Compile Include="CartTests\CartTest.cs" />
     <Compile Include="NavControllerTests\CategoriesTests.cs" />
