@@ -22,7 +22,7 @@ namespace Store.WebUI.Controllers
             var model = new ProductsListViewModel
             {
                 Products = repository.Products
-                .Where(p => (category == null || p.Category == category)&& !p.isDeleted)
+                .Where(p => (category == null || p.Category == category) && !p.isDeleted)
                     .OrderBy(p => p.ProductID)
                     .Skip((page - 1) * PageSize)
                     .Take(PageSize),
@@ -31,8 +31,8 @@ namespace Store.WebUI.Controllers
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
                     TotalItems = category == null ?
-                        repository.Products.Count() :
-                        repository.Products.Where(p => p.Category == category).Count()
+                        repository.Products.Where(p => !p.isDeleted).Count() :
+                        repository.Products.Where(p => p.Category == category && !p.isDeleted).Count()
                 },
                 SelectedCategory = category
             };
