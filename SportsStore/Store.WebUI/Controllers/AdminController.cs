@@ -19,7 +19,7 @@ namespace Store.WebUI.Controllers
         }
         public ViewResult Index()
         {
-            return View(this.repository.Products);
+            return View(this.repository.Products.Where(p => !p.isDeleted));
         }
 
         public ViewResult Edit(int productId)
@@ -33,7 +33,7 @@ namespace Store.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (image!=null)
+                if (image != null)
                 {
                     product.ImageMimeType = image.ContentType;
                     product.ImageData = new byte[image.ContentLength];
@@ -59,9 +59,25 @@ namespace Store.WebUI.Controllers
         public ActionResult Delete(int productId)
         {
             var deletedProduct = this.repository.DeleteProduct(productId);
-            if (deletedProduct != null)
+            if (deletedProduct)
             {
-                TempData["message"] = string.Format("{0} was deleted", deletedProduct.Name);
+                TempData["message"] = "Product was deleted";
+            }
+            return RedirectToAction("Index");
+        }
+
+        public ViewResult Restore()
+        {
+            return View(this.repository.Products.Where(p => p.isDeleted));
+        }
+
+        [HttpPost]
+        public ActionResult Restore(int productId)
+        {
+            var productToRestore = this.repository.RestoreProduct(productId);
+            if (productToRestore)
+            {
+                TempData["message"] = "Product was restored";
             }
             return RedirectToAction("Index");
         }

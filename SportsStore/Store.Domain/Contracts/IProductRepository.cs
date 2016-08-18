@@ -13,6 +13,8 @@ namespace Store.Domain.Contracts
 
         void SaveProduct(Product product);
 
-        Product DeleteProduct(int productId);
+        bool DeleteProduct(int productId);
+
+        bool RestoreProduct(int productId);
     }
 }

@@ -22,6 +22,10 @@ namespace Store.WebUI.Controllers
 
         public RedirectToRouteResult AddToCart(Cart cart, int productId, string returnUrl, int quantity = 1)
         {
+            if (quantity < 1)
+            {
+                quantity = 1;
+            }
             var product = this.repository.Products.FirstOrDefault(x => x.ProductID == productId);
 
             if (product != null)
@@ -38,6 +42,7 @@ namespace Store.WebUI.Controllers
             {
                 cart.RemoveLine(product);
             }
+            
             return RedirectToAction("Index", new { returnUrl });
         }
         public ViewResult Index(Cart cart, string returnUrl)

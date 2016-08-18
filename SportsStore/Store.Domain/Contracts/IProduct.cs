@@ -15,5 +15,7 @@ namespace Store.Domain.Contracts
         string Category { get; }
         byte[] ImageData { get; }
         string ImageMimeType { get; }
+
+        bool isDeleted { get; }
     }
 }

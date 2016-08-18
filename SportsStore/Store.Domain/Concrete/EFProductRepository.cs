@@ -19,15 +19,16 @@ namespace Store.Domain.Concrete
             }
         }
 
-        public Product DeleteProduct(int productId)
+        public bool DeleteProduct(int productId)
         {
             var dbEntry = this.context.Products.Find(productId);
             if (dbEntry != null)
             {
-                this.context.Products.Remove(dbEntry);
+                dbEntry.isDeleted = true;
                 this.context.SaveChanges();
+                return true;
             }
-            return dbEntry;
+            return false;
         }
 
         public void SaveProduct(Product product)
@@ -51,5 +52,19 @@ namespace Store.Domain.Concrete
             }
             this.context.SaveChanges();
         }
+
+        public bool RestoreProduct(int productId)
+        {
+            var product = this.context.Products.Find(productId);
+            if (product != null)
+            {
+                product.isDeleted = false;
+                this.context.SaveChanges();
+                return true;
+            }
+            return false;
+        }
+
+        
     }
 }

@@ -29,10 +29,15 @@ namespace Store.Domain.Models
 
         public byte[] ImageData
         {
-            get;set;
+            get; set;
         }
 
         public string ImageMimeType
+        {
+            get; set;
+        }
+
+        public bool isDeleted
         {
             get; set;
         }

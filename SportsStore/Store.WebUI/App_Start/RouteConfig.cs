@@ -14,6 +14,10 @@ namespace Store.WebUI
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
 
             routes.MapRoute(
+
+             null, "Img/{id}", new { controller = "Product", action = "GetImage", id = 2 });
+
+            routes.MapRoute(
                 null,
                 "Page{page}",
                 new { controller = "Product", action = "List", category = (string)null, page = 1 }
