@@ -59,9 +59,9 @@ namespace Store.WebUI.Controllers
         public ActionResult Delete(int productId)
         {
             var deletedProduct = this.repository.DeleteProduct(productId);
-            if (deletedProduct)
+            if (deletedProduct != null)
             {
-                TempData["message"] = "Product was deleted";
+                TempData["message"] = string.Format("{0} was successfully deleted ! ", deletedProduct.Name);
             }
             return RedirectToAction("Index");
         }
@@ -75,9 +75,9 @@ namespace Store.WebUI.Controllers
         public ActionResult Restore(int productId)
         {
             var productToRestore = this.repository.RestoreProduct(productId);
-            if (productToRestore)
+            if (productToRestore != null)
             {
-                TempData["message"] = "Product was restored";
+                TempData["message"] = string.Format("{0} was successfully restored ! ", productToRestore.Name);
             }
             return RedirectToAction("Index");
         }
