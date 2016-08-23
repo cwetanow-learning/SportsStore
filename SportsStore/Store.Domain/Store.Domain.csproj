@@ -85,10 +85,12 @@
     <Compile Include="Contracts\IOrderProcessor.cs" />
     <Compile Include="Contracts\IProduct.cs" />
     <Compile Include="Contracts\IProductRepository.cs" />
+    <Compile Include="Contracts\IUser.cs" />
     <Compile Include="Models\Cart.cs" />
     <Compile Include="Models\CartLine.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\ShippingDetails.cs" />
+    <Compile Include="Models\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

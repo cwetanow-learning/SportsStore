@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace Store.WebUI.Controllers
 {
@@ -16,7 +17,7 @@ namespace Store.WebUI.Controllers
         {
             this.provider = prov;
         }
-        public ViewResult Login()
+        public ActionResult Login()
         {
             return View();
         }
@@ -28,7 +29,7 @@ namespace Store.WebUI.Controllers
             {
                 if (provider.Authenticate(model.Username, model.Password))
                 {
-                    return Redirect(url ?? Url.Action("Index", "Admin"));
+                    return Redirect(url ?? Url.Action("List", "Product"));
                 }
                 else
                 {
@@ -40,6 +41,13 @@ namespace Store.WebUI.Controllers
             {
                 return View();
             }
+        }
+
+        public ActionResult Logout()
+        {
+            FormsAuthentication.SignOut();
+            Session.Abandon();
+            return RedirectToAction("List", "Product");
         }
     }
 }

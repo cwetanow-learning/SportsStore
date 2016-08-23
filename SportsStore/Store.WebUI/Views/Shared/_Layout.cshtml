@@ -17,6 +17,10 @@
        page = 1
    }, new { @class = "navbar-brand" })
         @Html.Action("Summary", "Cart")
+        <div class="navbar-right">
+            @Html.ActionLink("Login", "Login", new { controller="Account"},
+           new { @class = "btn btn-default navbar-btn" })
+        </div>
     </div>
     <div class="row panel">
         <div id="categories" class="col-xs-3">
