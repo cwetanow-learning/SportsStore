@@ -1,0 +1,3 @@
+﻿@model Store.Domain.Contracts.ICartLine
+
+@((Model.Quantity * Model.Product.Price).ToString("c"))
