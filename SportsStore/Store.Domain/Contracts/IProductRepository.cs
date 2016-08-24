@@ -16,5 +16,7 @@ namespace Store.Domain.Contracts
         Product DeleteProduct(int productId);
 
         Product RestoreProduct(int productId);
+
+        bool RestoreAll();
     }
 }

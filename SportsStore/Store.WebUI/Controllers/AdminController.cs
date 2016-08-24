@@ -8,7 +8,7 @@ using System.Web.Mvc;
 
 namespace Store.WebUI.Controllers
 {
-    [Authorize(Users ="admin")]
+    [Authorize(Users = "admin")]
     public class AdminController : Controller
     {
         private IProductRepository repository;
@@ -80,6 +80,27 @@ namespace Store.WebUI.Controllers
                 TempData["message"] = string.Format("{0} was successfully restored ! ", productToRestore.Name);
             }
             return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public PartialViewResult Search(string pattern = "")
+        {
+            var result = this.repository.Products.Where(p => p.Name.ToLower().Contains(pattern.ToLower()) && !p.isDeleted);
+            return this.PartialView(result);
+        }
+
+        public ActionResult RestoreAll()
+        {
+            var restorationSuccessfull = this.repository.RestoreAll();
+            if (restorationSuccessfull)
+            {
+                TempData["message"] = string.Format("Products were successfully restored ! ");
+            }
+            else
+            {
+                TempData["message"] = string.Format("No products found ");
+            }
+            return this.RedirectToAction("Index");
         }
     }
 }

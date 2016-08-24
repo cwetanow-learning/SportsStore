@@ -63,6 +63,22 @@ namespace Store.Domain.Concrete
             return product;
         }
 
+        public bool RestoreAll()
+        {
+            var products = this.context.Products.Where(p => p.isDeleted);
 
+            if (products!=null && products.Count()>0)
+            {
+                foreach (var product in products)
+                {
+                    product.isDeleted = false;
+                }
+
+                this.context.SaveChanges();
+                return true;
+            }
+
+            return false;
+        }
     }
 }
