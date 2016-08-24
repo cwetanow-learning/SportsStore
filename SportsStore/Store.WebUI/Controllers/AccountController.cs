@@ -21,7 +21,15 @@ namespace Store.WebUI.Controllers
         }
         public ActionResult Login()
         {
-            return View();
+            if (Request.IsAuthenticated)
+            {
+                return RedirectToAction("Index", new { controller = "Admin" });
+            }
+            else
+            {
+                return View();
+            }
+            
         }
 
         [HttpPost]
@@ -31,7 +39,7 @@ namespace Store.WebUI.Controllers
             {
                 if (provider.Authenticate(model.Username, model.Password))
                 {
-                    return Redirect(url ?? Url.Action("List", "Product"));
+                    return RedirectToAction("Index", new { controller = "Admin" });
                 }
                 else
                 {

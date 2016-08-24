@@ -51,8 +51,7 @@ namespace Store.Tests.AuthenticationTests
 
             var result = controller.Login(mockedLogin.Object, url);
 
-            Assert.IsInstanceOf<RedirectResult>(result);
-            Assert.AreEqual(((RedirectResult)result).Url, url);
+            Assert.IsInstanceOf<RedirectToRouteResult>(result);
         }
     }
 }
