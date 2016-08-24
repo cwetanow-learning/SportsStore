@@ -2,14 +2,15 @@
 
 @Html.HiddenFor(m => m.ProductID)
 @foreach (var property in ViewData.ModelMetadata.Properties)
-            {
-                switch (property.PropertyName)
-                {
-                    case "ProductID":
-                    case "ImageData":
-                    case "ImageMimeType":
-                        break;
-                    default:
+{
+    switch (property.PropertyName)
+    {
+        case "ProductID":
+        case "ImageData":
+        case "ImageMimeType":
+        case "isDeleted":
+            break;
+        default:
             <div class="form-group">
                 <label>
                     @(property.DisplayName ?? property.PropertyName)

@@ -12,11 +12,12 @@
 
             @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal" }))
             {
-                @Html.ValidationSummary()
+
                 <fieldset>
                     <div id="legend">
                         <legend>Register</legend>
                     </div>
+                    @Html.ValidationSummary()
                     <div class="control-group">
                         <label class="control-label" for="username">Username</label>
                         <div class="controls">
@@ -53,7 +54,6 @@
                     </div>
 
                     <div class="control-group">
-                        <!-- Button -->
                         <div class="controls">
                             <input type="submit" value="Register" class="btn btn-primary" />
                         </div>
