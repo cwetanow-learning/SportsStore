@@ -9,25 +9,27 @@
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="navbar navbar-inverse" role="navigation">
-        @Html.RouteLink("SPORTS STORE", new
-   {
-       controller = "Product",
-       action = "List",
-       page = 1
-   }, new { @class = "navbar-brand" })
-        @Html.Action("Summary", "Cart")
-        <div class="navbar-right">
-            @Html.ActionLink("Login", "Login", new { controller="Account"},
+    <div class="col-lg-12">
+        <div class="navbar navbar-inverse" role="navigation">
+            @Html.RouteLink("SPORTS STORE", new
+       {
+           controller = "Product",
+           action = "List",
+           page = 1
+       }, new { @class = "navbar-brand" })
+            @Html.Action("Summary", "Cart")
+            <div class="navbar-right">
+                @Html.ActionLink("Login", "Login", new { controller = "Account" },
            new { @class = "btn btn-default navbar-btn" })
+            </div>
         </div>
-    </div>
-    <div class="row panel">
-        <div id="categories" class="col-xs-3">
-            @Html.Action("Menu", "Nav")
-        </div>
-        <div class="col-xs-8">
-            @RenderBody()
+        <div class="row panel">
+            <div id="categories" class="col-xs-3">
+                @Html.Action("Menu", "Nav")
+            </div>
+            <div class="col-xs-8">
+                @RenderBody()
+            </div>
         </div>
     </div>
 </body>
