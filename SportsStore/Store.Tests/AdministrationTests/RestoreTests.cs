@@ -1,6 +1,8 @@
 ﻿using Moq;
 using NUnit.Framework;
+using Store.Domain.Concrete;
 using Store.Domain.Contracts;
+using Store.Domain.Models;
 using Store.WebUI.Controllers;
 using System;
 using System.Collections.Generic;
@@ -70,5 +72,7 @@ namespace Store.Tests.AdministrationTests
 
             Assert.IsInstanceOf<RedirectToRouteResult>(result);
         }
+
+        
     }
 }
