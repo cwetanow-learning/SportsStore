@@ -11,9 +11,12 @@ namespace Store.Domain.Models
 {
     public class User : IUser
     {
+
+
         [DataType(DataType.EmailAddress)]
         [Required(ErrorMessage = "Please enter email")]
-    
+        [EmailAddress(ErrorMessage = "Please enter email")]
+
         public string Email
         {
             get; set;
@@ -30,6 +33,13 @@ namespace Store.Domain.Models
         [Required(ErrorMessage = "Please enter password")]
         [StringLength(int.MaxValue, MinimumLength = 6)]
         public string Password
+        {
+            get; set;
+        }
+
+        [System.ComponentModel.DataAnnotations.Compare("Password")]
+        [Required(ErrorMessage = "Please re-enter password")]
+        public string ConfirmPassword
         {
             get; set;
         }

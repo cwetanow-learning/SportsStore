@@ -13,6 +13,8 @@ namespace Store.Domain.Contracts
 
         string Password { get; set; }
 
+        string ConfirmPassword { get; set; }
+
         string Email { get; set; }
 
         string Name { get; set; }

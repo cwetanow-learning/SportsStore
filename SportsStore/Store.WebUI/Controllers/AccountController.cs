@@ -1,4 +1,6 @@
-﻿using Store.WebUI.Infrastructure.Contracts;
+﻿using Store.Domain.Contracts;
+using Store.Domain.Models;
+using Store.WebUI.Infrastructure.Contracts;
 using Store.WebUI.Models;
 using System;
 using System.Collections.Generic;
@@ -48,6 +50,17 @@ namespace Store.WebUI.Controllers
             FormsAuthentication.SignOut();
             Session.Abandon();
             return RedirectToAction("List", "Product");
+        }
+
+        public ViewResult Register()
+        {
+            return this.View();
+        }
+
+        [HttpPost]
+        public ActionResult Register(User user)
+        {
+            return View("Login");
         }
     }
 }

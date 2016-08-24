@@ -10,7 +10,7 @@ namespace Store.Domain.Concrete
 {
     public class EFProductRepository : IProductRepository
     {
-        private EFDBContext context = new EFDBContext();
+        protected EFDBContext context = new EFDBContext();
         public IEnumerable<IProduct> Products
         {
             get
