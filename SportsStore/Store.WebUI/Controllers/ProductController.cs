@@ -19,20 +19,23 @@ namespace Store.WebUI.Controllers
 
         public ViewResult List(string category, int page = 1)
         {
-            var model = new ProductsListViewModel
-            {
-                Products = repository.Products
+            var products = repository.Products
                 .Where(p => (category == null || p.Category == category) && !p.isDeleted)
                     .OrderBy(p => p.ProductID)
                     .Skip((page - 1) * PageSize)
-                    .Take(PageSize),
+                    .Take(PageSize);
+
+            var totalItems = category == null ?
+                        repository.Products.Where(p => !p.isDeleted).Count() :
+                        repository.Products.Where(p => p.Category == category && !p.isDeleted).Count();
+            var model = new ProductsListViewModel
+            {
+                Products = products,
                 PagingInfo = new PagingInfo
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalItems = category == null ?
-                        repository.Products.Where(p => !p.isDeleted).Count() :
-                        repository.Products.Where(p => p.Category == category && !p.isDeleted).Count()
+                    TotalItems = totalItems
                 },
                 SelectedCategory = category
             };

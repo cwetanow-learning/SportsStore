@@ -1,4 +1,4 @@
-﻿@model Store.Domain.Models.User
+﻿@model Store.WebUI.Models.RegisterViewModel
 
 
 @{
@@ -21,37 +21,18 @@
                     <div class="control-group">
                         <label class="control-label" for="username">Username</label>
                         <div class="controls">
-                            @Html.TextBoxFor(u => u.Username, new { @class = "form-control input-lg" })
+                            @Html.EditorFor(u => u.Username, new { @class = "form-control input-lg" })
                         </div>
                     </div>
 
                     <div class="control-group">
                         <label class="control-label" for="email">E-mail</label>
-                        <div class="controls">
-                            @Html.EditorFor(u => u.Email, new { @class = "form-control input-lg" })
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="email">E-mail</label>
-                        <div class="controls">
-                            @Html.TextBoxFor(u => u.Name, new { @class = "form-control input-lg" })
-                        </div>
-                    </div>
-
-                    <div class="control-group">
-                        <label class="control-label" for="password">Password</label>
                         <div class="controls">
                             @Html.PasswordFor(u => u.Password, new { @class = "form-control input-lg" })
                         </div>
                     </div>
 
-                    <div class="control-group">
-                        <label class="control-label" for="password_confirm">Password (Confirm)</label>
-                        <div class="controls">
-                            @Html.PasswordFor(u => u.ConfirmPassword, new { @class = "form-control input-lg" })
-                        </div>
-                    </div>
+                    
 
                     <div class="control-group">
                         <div class="controls">

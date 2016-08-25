@@ -1,4 +1,6 @@
-﻿using Moq;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Moq;
 using Ninject;
 using Store.Domain.Concrete;
 using Store.Domain.Contracts;
@@ -44,6 +46,9 @@ namespace Store.WebUI.Infrastructure
             kernel.Bind<IOrderProcessor>().To<EmailOrderProcessor>().WithConstructorArgument("settings", emailSettings);
 
             kernel.Bind<IAuthProvider>().To<FormsAuthProvider>();
+
+            kernel.Bind<IUserStore<User>>().To<UserStore<User>>();
+            
         }
     }
 }

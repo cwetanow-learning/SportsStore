@@ -1,5 +1,9 @@
-﻿using Store.Domain.Contracts;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+using Store.Domain.Contracts;
 using Store.Domain.Models;
+using Store.WebUI.App_Start;
 using Store.WebUI.Infrastructure.Contracts;
 using Store.WebUI.Models;
 using System;
@@ -13,11 +17,16 @@ namespace Store.WebUI.Controllers
 {
     public class AccountController : Controller
     {
-        private IAuthProvider provider;
+        private MyUserManager manager;
 
-        public AccountController(IAuthProvider prov)
+        public AccountController() : this(IdentityConfig.UserManagerFactory.Invoke())
         {
-            this.provider = prov;
+
+        }
+
+        public AccountController(MyUserManager manager)
+        {
+            this.manager = manager;
         }
         public ActionResult Login()
         {
@@ -29,7 +38,19 @@ namespace Store.WebUI.Controllers
             {
                 return View();
             }
-            
+
+        }
+
+        public MyUserManager UserManager
+        {
+            get
+            {
+                return this.manager ?? HttpContext.GetOwinContext().GetUserManager<MyUserManager>();
+            }
+            private set
+            {
+                this.manager = value;
+            }
         }
 
         [HttpPost]
@@ -37,15 +58,9 @@ namespace Store.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (provider.Authenticate(model.Username, model.Password))
-                {
-                    return RedirectToAction("Index", new { controller = "Admin" });
-                }
-                else
-                {
-                    ModelState.AddModelError("", "Incorrect username or password");
-                    return View();
-                }
+
+                return View();
+
             }
             else
             {
@@ -66,9 +81,22 @@ namespace Store.WebUI.Controllers
         }
 
         [HttpPost]
-        public ActionResult Register(User user)
+        public ActionResult Register(RegisterViewModel model)
         {
-            return View("Login");
+            if (ModelState.IsValid)
+            {
+                var user = new User { UserName = model.Username };
+                var result = UserManager.Create(user, model.Password);
+                if (result.Succeeded)
+                {
+                    TempData["message"] = "Success";
+                    return RedirectToAction("Index", "Admin");
+                }
+
+            }
+
+
+            return View(model);
         }
     }
 }

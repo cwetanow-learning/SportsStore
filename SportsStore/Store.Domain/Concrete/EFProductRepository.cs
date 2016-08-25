@@ -67,7 +67,7 @@ namespace Store.Domain.Concrete
         {
             var products = this.context.Products.Where(p => p.isDeleted);
 
-            if (products!=null && products.Count()>0)
+            if (products != null && products.Count() > 0)
             {
                 foreach (var product in products)
                 {

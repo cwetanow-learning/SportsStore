@@ -7,7 +7,14 @@ using System.Threading.Tasks;
 
 namespace Store.Domain.Models
 {
-    public class User : IdentityUser
+    public class Role : IdentityRole
     {
+        public Role() : base()
+        {
+        }
+
+        public Role(string roleName) : base(roleName)
+        {
+        }
     }
 }

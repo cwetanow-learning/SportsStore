@@ -1,7 +1,9 @@
-﻿using Store.Domain.Models;
+﻿using Store.Domain.Concrete;
+using Store.Domain.Models;
 using Store.WebUI.Infrastructure.Binders;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -15,7 +17,7 @@ namespace Store.WebUI
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-
+            Database.SetInitializer(new DropCreateDatabaseIfModelChanges<EFDBContext>());
             ModelBinders.Binders.Add(typeof(Cart), new CartModelBinder());
         }
     }
