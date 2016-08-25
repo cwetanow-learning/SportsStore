@@ -90,11 +90,10 @@ namespace Store.WebUI.Controllers
                 if (result.Succeeded)
                 {
                     TempData["message"] = "Success";
-                    return RedirectToAction("Index", "Admin");
+                    return RedirectToAction("List", "Product");
                 }
 
             }
-
 
             return View(model);
         }
