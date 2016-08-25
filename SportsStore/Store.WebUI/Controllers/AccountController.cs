@@ -85,7 +85,7 @@ namespace Store.WebUI.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new User { UserName = model.Username };
+                var user = new User { UserName = model.Username, Name = model.Name, Email = model.Email };
                 var result = UserManager.Create(user, model.Password);
                 if (result.Succeeded)
                 {
